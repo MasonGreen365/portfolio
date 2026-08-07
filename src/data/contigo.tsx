@@ -33,31 +33,31 @@ export const contigoCaseStudy: CaseStudyContent = {
     ),
     skills: [
       {
-        label: "Python / Flask",
+        label: "Technical project management",
         accent: "var(--palette-olive)",
       },
       {
-        label: "WhatsApp Cloud API",
+        label: "Retrieval-Augmented Generation",
         accent: "var(--palette-olive-dark)",
       },
       {
-        label: "LangChain + LLM comparasions",
+        label: "LLM output evaluation",
         accent: "var(--palette-forest)",
       },
       {
-        label: "OpenAI",
+        label: "WhatsApp Cloud API",
         accent: "var(--palette-sage)",
       },
       {
-        label: "MongoDB",
+        label: "Python / Flask",
         accent: "var(--palette-sand)",
       },
       {
-        label: "Azure App Service",
+        label: "MongoDB",
         accent: "var(--palette-ochre)",
       },
       {
-        label: "Technical project management",
+        label: "Azure App Service",
         accent: "var(--palette-rust)",
       },
     ],
@@ -94,11 +94,10 @@ export const contigoCaseStudy: CaseStudyContent = {
       },
       details: (
         <p>
-          Contigo aimed to show KIND how AI could support
-          client-facing services without replacing staff
-          judgment—accessible on WhatsApp, useful in natural
-          language, and light enough to update as guidance
-          changes.
+          Being a non-profit organization, KIND has limited resources to support 
+          their clients. We crafted a constrained conversational AI that integrated
+          both with the main method of client communication, WhatsApp, and could ingest information from KIND's existing knowledge base to support
+          client-facing services without interupting staff workflows. 
         </p>
       ),
       artifacts: [
@@ -123,12 +122,15 @@ export const contigoCaseStudy: CaseStudyContent = {
       id: "opportunity",
       title: "Opportunity",
       summary: (
-        <>
-          KIND already had substantial PDF guidance. Contigo’s
-          opportunity was to make that corpus conversational on
-          WhatsApp—meeting clients where they are and cutting
-          repetitive staff lookups.
-        </>
+        <ul className="list-disc space-y-2 pl-5">
+          <li>
+            KIND’s simplified child-facing docs made RAG Q&A
+            pairs fast to build.
+          </li>
+          <li>
+            Clients already used WhatsApp to communicate, so we built our solution to support this communication method instead of creating a new app.
+          </li>
+        </ul>
       ),
       illustration: {
         src: `${undrawImg}/opportunity.svg`,
@@ -137,27 +139,27 @@ export const contigoCaseStudy: CaseStudyContent = {
       },
       details: (
         <p>
-          Young clients already lived in messaging apps. The
-          win was turning existing KIND documents into a
-          conversational channel instead of another downloadable
-          packet.
+          To best understand the needs of KIND staff, we created user personas to describe needs and conducted interviews with staff to understand their workflows. We compiled these into collaborative boards to help us understand the needs of the clients and the staff and where a technology solution could fit in.
         </p>
       ),
       artifacts: [
         {
-          title: "Design workshop board",
+          title: "Feasibility framing",
           description: (
             <>
-              Team design activity capturing early framing for
-              Contigo’s client experience and service
-              categories.
+              Early workshop mapping chatbot style, project
+              domain, ethics, AI feasibility, platforms, and
+              KIND’s organizational roles before build.
             </>
           ),
           image: {
             src:
-              `${processImg}/04-design-activity-board.jpg`,
-            alt: "Team design activity board",
-            caption: "INFO 380 design activity",
+              `${processImg}/feasibility-diagram-contigo.png`,
+            alt:
+              "Contigo feasibility diagram with sticky notes " +
+              "on chatbot style, domain, ethics, AI, " +
+              "platforms, and KIND organization",
+            caption: "Feasibility workshop diagram",
           },
         },
       ],
@@ -166,12 +168,14 @@ export const contigoCaseStudy: CaseStudyContent = {
       id: "challenge",
       title: "Challenge",
       summary: (
-        <>
-          Trustworthy answers over messy documents, under cost
-          and timeline constraints: ingest KIND PDFs safely,
-          wire WhatsApp + Azure + MongoDB + an LLM as one path,
-          and avoid overclaiming legal advice.
-        </>
+        <ul className="list-disc space-y-2 pl-5">
+          <li>
+            Legal guidance shifts often, requiring frequent rebasing of the knowledge base.
+          </li>
+          <li>
+            Case managers needed to be able to easily triage clients who needed to speak with them, without interupting their workflows. 
+          </li>
+        </ul>
       ),
       illustration: {
         src: `${undrawImg}/challenge.svg`,
@@ -179,22 +183,34 @@ export const contigoCaseStudy: CaseStudyContent = {
           "unDraw illustration for Contigo challenge",
       },
       details: (
-        <p>
-          Delivery meant balancing retrieval quality, cost, and
-          a production messaging stack while parallel
-          workstreams competed for limited weeks before
-          handoff.
-        </p>
+        <>
+          <p>
+            Chatbot accuracy depended on how we refreshed and
+            constrained the knowledge base. An in-house LLM
+            underperformed OpenAI’s agent when we repeatedly
+            rebased that corpus, and standardizing KIND’s
+            information wholesale needed more institutional
+            resources than we had, which prompted us to focus on a more constrained knowledge base and require a case manager stay involved in the conversation through reciepts sent via email.
+          </p>
+          <p>
+            Deciding when a client needed their case manager
+            was hard without a human in the loop. We settled
+            on escalating after two layers of inquiry. Weekly
+            standups kept that tradeoff visible while we
+            iterated on WhatsApp deploy, data cleaning, and
+            sponsor expectations in short cycles.
+          </p>
+        </>
       ),
       artifacts: [
         {
           title: "Weekly delivery board",
           description: (
             <>
-              Standup snapshot from April 2024—sponsor
-              coordination, WhatsApp deploy priorities, and
-              blockers around data cleaning and handoff
-              expectations.
+              Standup board from the rapid iteration
+              cadence—priorities, blockers, and next-week
+              owners as we adjusted escalation rules, knowledge
+              base scope, and WhatsApp deploy week to week.
             </>
           ),
           image: {
@@ -202,7 +218,8 @@ export const contigoCaseStudy: CaseStudyContent = {
               `${processImg}/01-weekly-standup-board.png`,
             alt:
               "Weekly standup board with tasks and blockers",
-            caption: "Weekly standup — April 2024",
+            caption:
+              "Rapid iteration standup — April 2024",
           },
         },
         {
@@ -227,9 +244,7 @@ export const contigoCaseStudy: CaseStudyContent = {
       title: "Outcome",
       summary: (
         <>
-          Delivered a working WhatsApp PoC with retrieval over
-          KIND docs, multilingual replies, and chat
-          history—plus sponsor-ready architecture, roadmap, and
+          Delivered a working WhatsApp service with 100 Q&A pairs, multilingual support, and reciept generation for KIND staff to monitor the service. Additionally, we provided a detailed roadmap, architecture diagram, and
           handoff materials for continued use.
         </>
       ),
@@ -263,17 +278,26 @@ export const contigoCaseStudy: CaseStudyContent = {
           title: "Working demo",
           description: (
             <>
-              Validation screenshot from the live WhatsApp
-              proof of concept.
+              I created a cost projection for the project to help KIND understand the resources required to maintain the service.
             </>
           ),
           image: {
-            src: `${processImg}/05-demo-screenshot.png`,
+            src: `${processImg}/05-cost-projection.png`,
             alt: "Contigo demo screenshot",
-            caption: "Demo screenshot",
+            caption: "Cost projection for the project",
           },
         },
       ],
     },
   ],
+  demoVideo: {
+    title: "Demo",
+    youtubeId: "kmd0yD5MJWk",
+    description: (
+      <>
+        Capstone walkthrough of Contigo’s WhatsApp chatbot
+        proof of concept for KIND.
+      </>
+    ),
+  },
 };

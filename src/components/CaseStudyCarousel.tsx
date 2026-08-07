@@ -106,14 +106,14 @@ export default function CaseStudyCarousel({
               <p className="text-sm tracking-wide uppercase">
                 {card.title}
               </p>
-              <p
+              <div
                 className={
                   "mt-4 text-lg leading-relaxed " +
                   "sm:text-xl"
                 }
               >
                 {card.summary}
-              </p>
+              </div>
             </div>
             <div
               className={

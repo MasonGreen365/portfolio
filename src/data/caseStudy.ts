@@ -21,6 +21,11 @@ export type CaseStudyAbout = {
     top: CaseStudyImage;
     bottom: CaseStudyImage;
   };
+  /** Optional single collaborator mark (e.g. PSRC). */
+  collaboration?: {
+    label: string;
+    logo: CaseStudyImage;
+  };
 };
 
 export type CaseStudyArtifact = {
@@ -47,5 +52,11 @@ export type CaseStudyContent = {
   findOutMore?: {
     intro: ReactNode;
     artifacts: CaseStudyArtifact[];
+  };
+  /** Optional YouTube (or similar) demo at page bottom. */
+  demoVideo?: {
+    title?: string;
+    youtubeId: string;
+    description?: ReactNode;
   };
 };
