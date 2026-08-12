@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import type { CaseStudyCard } from "@/data/caseStudy";
 
 /* Props for the expandable overview card carousel. */
@@ -9,12 +9,19 @@ type CaseStudyCarouselProps = {
   cards: CaseStudyCard[];
 };
 
+const SWIPE_THRESHOLD_PX = 48;
+
 /* Carousel of Goal/Opportunity/Challenge/Outcome cards with expand. */
 export default function CaseStudyCarousel({
   cards,
 }: CaseStudyCarouselProps) {
   const [index, setIndex] = useState(0);
   const [expanded, setExpanded] = useState(false);
+  const pointerStart = useRef<{
+    x: number;
+    y: number;
+    id: number;
+  } | null>(null);
   const card = cards[index];
   const total = cards.length;
 
@@ -35,6 +42,39 @@ export default function CaseStudyCarousel({
   function selectCard(i: number) {
     setIndex(i);
     setExpanded(false);
+  }
+
+  function onPointerDown(
+    event: React.PointerEvent<HTMLElement>,
+  ) {
+    if (event.pointerType === "mouse" && event.button !== 0) {
+      return;
+    }
+    pointerStart.current = {
+      x: event.clientX,
+      y: event.clientY,
+      id: event.pointerId,
+    };
+  }
+
+  function onPointerUp(
+    event: React.PointerEvent<HTMLElement>,
+  ) {
+    const start = pointerStart.current;
+    pointerStart.current = null;
+    if (!start || start.id !== event.pointerId) return;
+
+    const dx = event.clientX - start.x;
+    const dy = event.clientY - start.y;
+    if (Math.abs(dx) < SWIPE_THRESHOLD_PX) return;
+    if (Math.abs(dx) <= Math.abs(dy)) return;
+
+    if (dx < 0) goNext();
+    else goPrev();
+  }
+
+  function onPointerCancel() {
+    pointerStart.current = null;
   }
 
   const canExpand =
@@ -61,11 +101,12 @@ export default function CaseStudyCarousel({
             type="button"
             onClick={goPrev}
             className={
-              "flex h-10 w-10 items-center " +
+              "hidden h-10 w-10 items-center " +
               "justify-center rounded-full " +
               "border border-black text-lg " +
               "leading-none transition " +
-              "hover:bg-black hover:text-white"
+              "hover:bg-black hover:text-white " +
+              "sm:flex"
             }
             aria-label="Previous card"
           >
@@ -75,11 +116,12 @@ export default function CaseStudyCarousel({
             type="button"
             onClick={goNext}
             className={
-              "flex h-10 w-10 items-center " +
+              "hidden h-10 w-10 items-center " +
               "justify-center rounded-full " +
               "border border-black text-lg " +
               "leading-none transition " +
-              "hover:bg-black hover:text-white"
+              "hover:bg-black hover:text-white " +
+              "sm:flex"
             }
             aria-label="Next card"
           >
@@ -91,12 +133,16 @@ export default function CaseStudyCarousel({
       <div className="mt-6">
         <article
           className={
-            "overflow-hidden rounded-2xl " +
-            "border border-black bg-white"
+            "touch-pan-y overflow-hidden rounded-2xl " +
+            "border border-black bg-white " +
+            "select-none sm:select-auto"
           }
           aria-label={
             `${card.title} (${index + 1} of ${total})`
           }
+          onPointerDown={onPointerDown}
+          onPointerUp={onPointerUp}
+          onPointerCancel={onPointerCancel}
         >
           <div
             className={
@@ -131,8 +177,10 @@ export default function CaseStudyCarousel({
                   src={card.illustration.src}
                   alt={card.illustration.alt}
                   className={
-                    "max-h-72 w-full object-contain"
+                    "pointer-events-none max-h-72 " +
+                    "w-full object-contain"
                   }
+                  draggable={false}
                 />
               ) : (
                 <p className="text-sm text-neutral-500">
@@ -252,12 +300,14 @@ export default function CaseStudyCarousel({
                               alt={artifact.image.alt}
                               fill
                               className={
+                                "pointer-events-none " +
                                 "object-contain p-3"
                               }
                               sizes={
                                 "(max-width: 1024px) " +
                                 "100vw, 64rem"
                               }
+                              draggable={false}
                             />
                           </div>
                           {artifact.image.caption ? (

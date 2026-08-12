@@ -84,7 +84,7 @@ export default function CalendlyEmbed() {
     <div
       id="calendly-embed"
       ref={containerRef}
-      className="mt-4 w-full min-w-[320px]"
+      className="mt-4 w-full max-w-full"
       style={{ minHeight: 700 }}
     />
   );
