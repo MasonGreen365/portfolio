@@ -3,32 +3,33 @@ import type { CaseStudyContent } from "@/data/caseStudy";
 const processImg = "/images/projects/contigo/process";
 const undrawImg = "/images/projects/contigo/unDraw";
 
+/* Contigo case-study content for /projects/contigo. */
 export const contigoCaseStudy: CaseStudyContent = {
   about: {
-    problem: (
-      <>
-        Navigating the legal system is complex, intimidating, and
-        high-stakes for Unaccompanied Alien Children (UAcs) seeking
-        asylum in the United States. Kids in Need of Defense sponsored
-        our Informatics Capstone Team in 2024 to ideate, build, and
-        deliver a working prototype to support their ongoing
-        communications with their clients. Through extensive research,
-        we developed a WhatsApp chatbot that answers relevant
-        questions, raises issues to that clients case manager, and
-        triages ongoing issues for institutional knowledge. The
-        chatbot is low-cost, multilingual, and derived from
-        standardized knowledge bases KIND already uses internally.
-      </>
-    ),
     role: (
       <>
-        I was the <strong>technical project manager</strong> and{" "}
-        <strong>software engineer</strong> on our five-person UW
-        iSchool capstone team (<em>Jan–May 2024</em>). I guided our
-        development process regarding <strong>LLM/AI</strong> use,
-        designed the technology stack, set technical deliverables in
-        sprints, and wrote the <strong>Flask</strong> application
-        backend to serve the chatbot.
+        I was the <strong>technical project manager</strong>{" "}
+        and a <strong>software engineer</strong> on a
+        five-person UW iSchool capstone team (
+        <em>Jan–May 2024</em>), sponsored by Kids in Need of
+        Defense (KIND). I guided our development process
+        regarding AI use, designed the technology stack based
+        off client needs, and wrote the{" "}
+        <strong>Flask</strong> application. The MVP was
+        shipped and designed to fufill the needs of 10
+        clients and their case-managers as a
+        proof-of-concept.
+      </>
+    ),
+    problem: (
+      <>
+        Navigating asylum and legal services is high-stakes
+        for Unaccompanied Alien Children. KIND needed a
+        low-cost, multilingual channel that answers questions
+        based off their written existing knowledge base,
+        capable of escalating issues to case managers when
+        appropriate, and can be institutionally adopted
+        without signifigant staffing requirements.
       </>
     ),
     skills: [
@@ -81,12 +82,19 @@ export const contigoCaseStudy: CaseStudyContent = {
       id: "goal",
       title: "Goal",
       summary: (
-        <>
-          Ship a proof-of-concept communication service that
-          answers immigration and service questions for KIND
-          clients 24/7, in multiple languages, knowledge and
-          cost constrained.
-        </>
+        <ul className="list-disc space-y-2 pl-5">
+          <li>
+            Ship a WhatsApp Service for KIND clients: Q&A +
+            issue escalation, 24/7, multilingual.
+          </li>
+          <li>
+            Constrained cost-per-user and knowledge-base using
+            LLM techniques.
+          </li>
+          <li>
+            Capstone window: Jan–May 2024, 5-person team.
+          </li>
+        </ul>
       ),
       illustration: {
         src: `${undrawImg}/goal.svg`,
@@ -94,10 +102,11 @@ export const contigoCaseStudy: CaseStudyContent = {
       },
       details: (
         <p>
-          Being a non-profit organization, KIND has limited resources to support 
-          their clients. We crafted a constrained conversational AI that integrated
-          both with the main method of client communication, WhatsApp, and could ingest information from KIND's existing knowledge base to support
-          client-facing services without interupting staff workflows. 
+          Being a non-profit, KIND has limited resources to
+          support clients. We built a constrained
+          conversational AI on WhatsApp that can ingest
+          KIND’s knowledge base and support client-facing
+          answers without interrupting staff workflows.
         </p>
       ),
       artifacts: [
@@ -124,11 +133,15 @@ export const contigoCaseStudy: CaseStudyContent = {
       summary: (
         <ul className="list-disc space-y-2 pl-5">
           <li>
-            KIND’s simplified child-facing docs made RAG Q&A
-            pairs fast to build.
+            Clients already on WhatsApp → no new client app
           </li>
           <li>
-            Clients already used WhatsApp to communicate, so we built our solution to support this communication method instead of creating a new app.
+            KIND’s client-facing docs → fast path to RAG Q&A
+            pairs
+          </li>
+          <li>
+            User research with staff (personas + interviews)
+            to fit real workflows
           </li>
         </ul>
       ),
@@ -139,7 +152,10 @@ export const contigoCaseStudy: CaseStudyContent = {
       },
       details: (
         <p>
-          To best understand the needs of KIND staff, we created user personas to describe needs and conducted interviews with staff to understand their workflows. We compiled these into collaborative boards to help us understand the needs of the clients and the staff and where a technology solution could fit in.
+          To understand KIND staff needs, we built personas,
+          interviewed staff, and compiled collaborative
+          boards so we could see where a technology solution
+          fit for clients and case managers.
         </p>
       ),
       artifacts: [
@@ -170,10 +186,23 @@ export const contigoCaseStudy: CaseStudyContent = {
       summary: (
         <ul className="list-disc space-y-2 pl-5">
           <li>
-            Legal guidance shifts often, requiring frequent rebasing of the knowledge base.
+            Legal guidance changes often → frequent
+            knowledge-base rebases
           </li>
           <li>
-            Case managers needed to be able to easily triage clients who needed to speak with them, without interupting their workflows. 
+            Escalate to case managers without breaking their
+            workflow
+          </li>
+          <li>
+            Institutional resources constrained feature
+            development, had to add verifable email receipts
+            for documentation purposes.
+          </li>
+          <li>
+            In-house LLM underperformed vs OpenAI on knowledge
+            rebases, and was difficult to absract tuning
+            process so that staff could reproduce it, forcing
+            OpenAI API adoption.
           </li>
         </ul>
       ),
@@ -188,17 +217,20 @@ export const contigoCaseStudy: CaseStudyContent = {
             Chatbot accuracy depended on how we refreshed and
             constrained the knowledge base. An in-house LLM
             underperformed OpenAI’s agent when we repeatedly
-            rebased that corpus, and standardizing KIND’s
-            information wholesale needed more institutional
-            resources than we had, which prompted us to focus on a more constrained knowledge base and require a case manager stay involved in the conversation through reciepts sent via email.
+            refreshed the models context base, and
+            standardizing KIND’s information wholesale needed
+            more institutional resources than we had. We
+            narrowed the scope of the project and returned
+            some duty back to case managers by keeping them in
+            loop via email receipts and issue escalation.
           </p>
           <p>
             Deciding when a client needed their case manager
-            was hard without a human in the loop. We settled
-            on escalating after two layers of inquiry. Weekly
-            standups kept that tradeoff visible while we
-            iterated on WhatsApp deploy, data cleaning, and
-            sponsor expectations in short cycles.
+            was hard without a human in the loop. We escalated
+            after two layers of inquiry. Weekly standups kept
+            that tradeoff visible while we iterated on
+            WhatsApp deploy, data cleaning, and sponsor
+            expectations.
           </p>
         </>
       ),
@@ -243,10 +275,21 @@ export const contigoCaseStudy: CaseStudyContent = {
       id: "outcome",
       title: "Outcome",
       summary: (
-        <>
-          Delivered a working WhatsApp service with 100 Q&A pairs, multilingual support, and reciept generation for KIND staff to monitor the service. Additionally, we provided a detailed roadmap, architecture diagram, and
-          handoff materials for continued use.
-        </>
+        <ul className="list-disc space-y-2 pl-5">
+          <li>
+            Working WhatsApp service:{" "}
+            <strong>~100 Q&A pairs</strong>, multilingual
+            support, receipt email for staff monitoring
+          </li>
+          <li>
+            Handoff: roadmap, architecture, and
+            maintain/extend docs
+          </li>
+          <li>
+            Cost projection prepared for KIND to plan ongoing
+            run cost
+          </li>
+        </ul>
       ),
       illustration: {
         src: `${undrawImg}/outcome.svg`,
@@ -254,8 +297,9 @@ export const contigoCaseStudy: CaseStudyContent = {
       },
       details: (
         <p>
-          The team handed KIND a working channel plus the
-          materials to understand, maintain, and extend it.
+          The team handed KIND a working MVP plus materials to
+          understand, maintain, and extend it. A demo video is
+          available at the bottom of the page.
         </p>
       ),
       artifacts: [
@@ -278,7 +322,9 @@ export const contigoCaseStudy: CaseStudyContent = {
           title: "Working demo",
           description: (
             <>
-              I created a cost projection for the project to help KIND understand the resources required to maintain the service.
+              I created a cost projection for the project to
+              help KIND understand the resources required to
+              maintain the service.
             </>
           ),
           image: {

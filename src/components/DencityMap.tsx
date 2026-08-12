@@ -29,6 +29,7 @@ function statusColor(status: string | null | undefined) {
   }
 }
 
+/* Leaflet map of a sparse Seattle parcel preview for Dencity. */
 export default function DencityMap() {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const mapRef = useRef<LeafletMap | null>(null);
@@ -80,7 +81,6 @@ export default function DencityMap() {
       ).addTo(map);
 
       L.geoJSON(data, {
-        renderer: L.canvas({ padding: 0.5 }),
         style: (feature) => ({
           color: statusColor(
             feature?.properties?.STATUS_TEXT_1,
@@ -155,9 +155,9 @@ export default function DencityMap() {
       <div
         ref={containerRef}
         className={
-          "mt-6 h-[28rem] w-full overflow-hidden " +
-          "rounded-2xl border border-black " +
-          "bg-neutral-100 sm:h-[32rem]"
+          "mt-6 h-112 w-full overflow-hidden " +
+          "roundh-112rder border-black " +
+          "bg-neutral-100 sm:h-128"
         }
       />
     </section>

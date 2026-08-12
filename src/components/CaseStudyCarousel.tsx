@@ -4,10 +4,12 @@ import Image from "next/image";
 import { useState } from "react";
 import type { CaseStudyCard } from "@/data/caseStudy";
 
+/* Props for the expandable overview card carousel. */
 type CaseStudyCarouselProps = {
   cards: CaseStudyCard[];
 };
 
+/* Carousel of Goal/Opportunity/Challenge/Outcome cards with expand. */
 export default function CaseStudyCarousel({
   cards,
 }: CaseStudyCarouselProps) {

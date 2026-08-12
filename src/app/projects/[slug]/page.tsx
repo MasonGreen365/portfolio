@@ -1,7 +1,9 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import AvePassCaseStudy from "@/components/AvePassCaseStudy";
 import ContigoCaseStudy from "@/components/ContigoCaseStudy";
 import DencityCaseStudy from "@/components/DencityCaseStudy";
+import ProjectRoleTag from "@/components/ProjectRoleTag";
 import {
   getAllProjectSlugs,
   getProjectBySlug,
@@ -26,7 +28,9 @@ export default async function ProjectDetailPage({
   }
 
   const caseStudy =
-    slug === "contigo" || slug === "dencity";
+    slug === "contigo" ||
+    slug === "dencity" ||
+    slug === "avepass";
 
   return (
     <div className="py-16">
@@ -36,8 +40,19 @@ export default async function ProjectDetailPage({
         </Link>
         <div className="mt-6 flex items-start justify-between gap-6">
           <div className="min-w-0 flex-1">
-            <h1 className="text-3xl font-semibold tracking-wide">
-              {project.title}
+            <h1
+              className={
+                "flex flex-wrap items-baseline " +
+                "gap-x-3 gap-y-1 text-3xl " +
+                "font-semibold tracking-wide"
+              }
+            >
+              <span>{project.title}</span>
+              <ProjectRoleTag
+                role={project.role}
+                accent={project.roleAccent}
+                className="text-base font-normal"
+              />
             </h1>
             {!caseStudy ? (
               <p className="mt-4 max-w-2xl leading-relaxed">
@@ -46,21 +61,52 @@ export default async function ProjectDetailPage({
             ) : null}
           </div>
           {project.demoStatus === "VIEW" ? (
-            <a
-              href={
-                slug === "dencity"
-                  ? "#dencity-demo"
-                  : `#${slug}-demo`
-              }
-              className={
-                "shrink-0 rounded-xl border border-black " +
-                "px-4 py-2 text-sm font-medium " +
-                "tracking-wide transition " +
-                "hover:bg-black hover:text-white"
-              }
-            >
-              {project.demoStatus}
-            </a>
+            <span className="group relative shrink-0">
+              <a
+                href={
+                  project.demoUrl ??
+                  `#${slug}-demo`
+                }
+                {...(project.demoUrl?.startsWith("http")
+                  ? {
+                      target: "_blank",
+                      rel: "noopener noreferrer",
+                    }
+                  : {})}
+                aria-describedby={
+                  project.demoUnavailableReason
+                    ? `${project.slug}-demo-reason`
+                    : undefined
+                }
+                className={
+                  "inline-block rounded-xl border " +
+                  "border-black px-4 py-2 text-sm " +
+                  "font-medium tracking-wide " +
+                  "transition hover:bg-black " +
+                  "hover:text-white"
+                }
+              >
+                {project.demoStatus}
+              </a>
+              {project.demoUnavailableReason ? (
+                <span
+                  id={`${project.slug}-demo-reason`}
+                  role="tooltip"
+                  className={
+                    "pointer-events-none absolute " +
+                    "right-0 top-full z-10 mt-2 w-max " +
+                    "max-w-xs rounded-lg border " +
+                    "border-black bg-white px-3 py-2 " +
+                    "text-xs leading-relaxed text-black " +
+                    "opacity-0 shadow-sm " +
+                    "transition-opacity duration-200 " +
+                    "group-hover:opacity-100"
+                  }
+                >
+                  {project.demoUnavailableReason}
+                </span>
+              ) : null}
+            </span>
           ) : (
             <span className="group relative shrink-0">
               <span
@@ -105,6 +151,8 @@ export default async function ProjectDetailPage({
         <ContigoCaseStudy />
       ) : slug === "dencity" ? (
         <DencityCaseStudy />
+      ) : slug === "avepass" ? (
+        <AvePassCaseStudy />
       ) : (
         <p
           className={

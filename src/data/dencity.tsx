@@ -1,40 +1,42 @@
 import type { CaseStudyContent } from "@/data/caseStudy";
 
 const processImg = "/images/projects/dencity/process";
+const diagramImg = "/images/projects/dencity/diagrams";
+const prototypeImg = "/images/projects/dencity/prototype";
 
+/* Dencity case-study content for /projects/dencity. */
 export const dencityCaseStudy: CaseStudyContent = {
   about: {
-    problem: (
-      <>
-        After WA House Bill 1110 opened middle-housing in
-        urban centers, homeowners and builders still had no
-        clear way to see which parcels were eligible—or how
-        policy and finance could unlock them. I founded
-        <strong> Dencity</strong> to turn that gap into a
-        geospatial MVP: a dashboard that makes regional
-        parcel data usable for people deciding where to build.
-      </>
-    ),
     role: (
       <>
-        I <strong>conceptualized Dencity as founder</strong>
-        {" "}and brought a team of four together to ship an
-        MVP—front-end, data science, and full-stack partners
-        alongside my product lead. Together we mapped
-        <strong> threat vectors</strong>, chose the
-        <strong> tech stack</strong>, and scoped a first
-        release that could prove the idea without waiting on
-        a full production platform.
+        I founded Dencity after a tech-policy research project
+        proved to be a viable solution to expand upon.
+        Recruiting three Informatics classmates, I led the
+        project as PM / lead SWE and organized a sprint to
+        develop an MVP of the project. During this time, I
+        fleshed out the tech-stack, found a collaborative
+        opporunitiy with the Puget Sound Regional Council
+        (PSRC) on sourcing parcel data, and shipped a first
+        MVP that shows parcels and middle-housing plans
+        without a full production deploy.
+      </>
+    ),
+    problem: (
+      <>
+        After WA House Bill 1110 opened middle housing in
+        single-family zones, owners, developers, and cities
+        still lacked a clear way to see which lots are
+        eligible and worth encouraging for denser types.
+        Inspired by ADUniverse (ADUs), Dencity targets that
+        gap for middle-housing plans in King County /
+        Seattle, showing properties competitive for
+        redevelopment based of PSRC metrics.
       </>
     ),
     skills: [
       {
         label: "Founding / product vision",
         accent: "var(--palette-olive)",
-      },
-      {
-        label: "Threat modeling",
-        accent: "var(--palette-olive-dark)",
       },
       {
         label: "Tech stack design",
@@ -45,7 +47,7 @@ export const dencityCaseStudy: CaseStudyContent = {
         accent: "var(--palette-sage)",
       },
       {
-        label: "PSRC data partnership",
+        label: "Collaborative Data Partnership",
         accent: "var(--palette-sand)",
       },
       {
@@ -55,6 +57,10 @@ export const dencityCaseStudy: CaseStudyContent = {
       {
         label: "Cross-functional leadership",
         accent: "var(--palette-rust)",
+      },
+      {
+        label: "Software Engineering",
+        accent: "var(--palette-olive-dark)",
       },
     ],
     collaboration: {
@@ -73,45 +79,58 @@ export const dencityCaseStudy: CaseStudyContent = {
       summary: (
         <ul className="list-disc space-y-2 pl-5">
           <li>
-            Prove that middle-housing opportunity could be
-            explored on a map-first MVP, not a policy PDF.
+            Developed core feature and refine: find eligible
+            lots + compare middle-housing plan types
           </li>
           <li>
-            Align a four-person build around threat vectors,
-            stack choices, and a shippable first cut.
+            Led 4-person team: Task assignment and sequencing
+            + coordinating revisions based off feedback
+          </li>
+          <li>
+            Created value for stakeholders: focusing MVP on
+            only owners exploring options + developers scoping
+            sites
           </li>
         </ul>
       ),
       illustration: {
-        src: `${processImg}/01-introduction.jpg`,
+        src: `${prototypeImg}/wireframes.png`,
         alt:
-          "Dencity introduction slide on middle-housing " +
-          "and HB 1110",
+          "Dencity wireframes for map search, plans, " +
+          "parcel detail, about, and contact",
       },
       details: (
         <p>
-          The founding goal was not a finished city platform
-          on day one. It was to validate Dencity: can we
-          ingest regional parcel data, surface eligibility
-          honestly, and give stakeholders something they can
-          click—while the larger corpus and production site
-          come later.
+          Product brief: help redevelop single-family homes
+          into middle housing with parcel search, interactive
+          maps, plan exploration, and pointers to rules and
+          financial programs. Clickable MVP first; fuller site
+          with the complete parcel set later.
         </p>
       ),
       artifacts: [
         {
-          title: "Project introduction",
+          title: "Sequence diagram",
           description: (
             <>
-              Early framing for incentivizing middle-housing
-              development in Seattle after HB 1110—the problem
-              space that sparked Dencity.
+              End-to-end property-manager flow: load the app,
+              filter parcels on the map, open detail, then
+              trends or plan/contact lookup. Error branches
+              cover empty search and missing contacts.
             </>
           ),
           image: {
-            src: `${processImg}/01-introduction.jpg`,
-            alt: "Dencity project introduction slide",
-            caption: "Introduction — founding context",
+            src: `${diagramImg}/sequence.png`,
+            alt:
+              "UML sequence diagram of property manager " +
+              "interactions with Dencity",
+            caption: (
+              <>
+                User ↔ system: search parcels, open detail,
+                trends, and plan/contact lookup—including
+                empty-result paths.
+              </>
+            ),
           },
         },
       ],
@@ -122,12 +141,17 @@ export const dencityCaseStudy: CaseStudyContent = {
       summary: (
         <ul className="list-disc space-y-2 pl-5">
           <li>
-            Policy moved first; tooling to inspect parcels and
-            incentives lagged behind.
+            ADUniverse proved utility; we widened scope to
+            duplex → larger plex plan types and additional
+            ways to create value
           </li>
           <li>
-            PSRC held the layers we needed—if we could obtain,
-            interpret, and ship them as product.
+            One place for Seattle / King County ordinance
+            context + lot-level exploration
+          </li>
+          <li>
+            Clear MVP surface: who the lot is for, what can be
+            built, how it sits in regional GIS
           </li>
         </ul>
       ),
@@ -138,44 +162,48 @@ export const dencityCaseStudy: CaseStudyContent = {
       details: (
         <>
           <p>
-            Middle housing sits between single-family homes and
-            large apartments. HB 1110 and state ordinances
-            created legal room to build; almost nothing helped
-            a homeowner or developer see their lot in that
-            new landscape.
-          </p>
-          <p>
-            Founding Dencity meant treating that gap as a
-            product opportunity: partner with the people who
-            hold the data, define what “good enough” looks like
-            for an MVP, and bring engineers who could turn
-            ArcGIS-derived GeoJSON into something interactive.
+            Landing copy split two audiences: owners exploring
+            options and developers scoping sites under local
+            ordinances. Resources listed concrete plan
+            types—duplex, triplex, fourplex, and
+            similar—with unit counts and rough plan costs.
+            That kept the MVP about showing options on a map,
+            not a long policy PDF.
           </p>
         </>
       ),
       artifacts: [
         {
-          title: "What is middle housing?",
+          title: "Dual map views",
           description: (
             <>
-              Definition and design archetypes we used to
-              explain the missing middle while recruiting
-              collaborators and scoping the MVP.
+              Side-by-side: all parcels touched by HB 1110 vs
+              parcels PSRC criteria mark as likely to
+              redevelop. That gap is why owners and developers
+              need a filterable dashboard, not a static
+              ordinance PDF.
             </>
           ),
           image: {
-            src: `${processImg}/03-frame-12.jpg`,
-            alt: "Middle-housing definition graphic",
-            caption: "Middle-housing definition",
+            src: `${processImg}/06-frame-18.jpg`,
+            alt:
+              "Dashboard comparing HB 1110–affected parcels " +
+              "to PSRC likely-to-develop parcels",
+            caption: (
+              <>
+                Affected vs likely-to-develop parcels—why
+                ordinance context and lot filters belong
+                together.
+              </>
+            ),
           },
         },
         {
           title: "Development strategies",
           description: (
             <>
-              Strategy language—plexify, missing-middle,
-              multiply, legalize—that shaped how we talked
-              about denser options on the dashboard.
+              Plan-type and denser-option notes used to explain
+              what can be built once a lot is in scope.
             </>
           ),
           image: {
@@ -192,55 +220,66 @@ export const dencityCaseStudy: CaseStudyContent = {
       summary: (
         <ul className="list-disc space-y-2 pl-5">
           <li>
-            GeoJSON at parcel scale is heavy, messy, and easy
-            to misread without domain help.
+            Parcel GeoJSON is large and easy to misread without
+            data dictionary, requiring lots of
+            technical-knowledge
           </li>
           <li>
-            Getting clean, understandable data meant working
-            directly with the PSRC technology team.
+            Found partnership with{" "}
+            <strong>PSRC</strong> tech team to obtain /
+            interpret layers before trusting
+            government-supplied map and its features.
+          </li>
+          <li>
+            Process rigor: threat model, personas,
+            sequence/component diagrams, requirements. Clean
+            attributes were difficult to create.
           </li>
         </ul>
       ),
       illustration: {
-        src: `${processImg}/02-features-dashboard.jpg`,
+        src: `${diagramImg}/threat-attack-tree.png`,
         alt:
-          "Features of the data-dashboard process slide",
+          "Threat modeling attack tree for compromising " +
+          "the Dencity platform",
       },
       details: (
         <>
           <p>
-            The hardest work was not drawing a map—it was
-            earning and understanding the data. We
-            conceptualized threat vectors (privacy, misuse of
-            eligibility claims, brittle pipelines) and a stack
-            that could grow, then spent the bulk of delivery
-            wrestling GeoJSON volume, attribute meaning, and
-            refresh reality.
-          </p>
-          <p>
-            Partnering with the Puget Sound Regional Council
-            technology team was essential: their portal and
-            ArcGIS packages were the source of truth, and their
-            guidance determined what we could honestly show in
-            an MVP versus what had to wait for a fuller
-            deployment.
+            Early docs included a threat model, personas,
+            sequence and component diagrams, and a
+            requirements list. The slow part was still data:
+            cleaning GeoJSON, reading attributes correctly,
+            and knowing what we could show honestly in an MVP.
+            PSRC’s portal and ArcGIS packages were the source
+            of truth and guided development in the first
+            sprint.
           </p>
         </>
       ),
       artifacts: [
         {
-          title: "Dashboard feature flow",
+          title: "UML component diagram",
           description: (
             <>
-              How we framed the path from PSRC data → filtered
-              parcels → interactive dashboard → incentive
-              pathways while still proving the concept.
+              Architecture blocks for the web UI,
+              map/search/eligibility visualizations, and
+              database integrity. Anchors the PSRC data
+              partnership in a concrete system shape.
             </>
           ),
           image: {
-            src: `${processImg}/02-features-dashboard.jpg`,
-            alt: "Features of the data-dashboard slide",
-            caption: "Data-dashboard feature flow",
+            src: `${diagramImg}/component.png`,
+            alt:
+              "UML component diagram of Dencity web " +
+              "interface, visualizations, and database",
+            caption: (
+              <>
+                Web interface, visualizations/reporting, and
+                database blocks around parcel GIS and
+                integrity.
+              </>
+            ),
           },
         },
       ],
@@ -251,56 +290,54 @@ export const dencityCaseStudy: CaseStudyContent = {
       summary: (
         <ul className="list-disc space-y-2 pl-5">
           <li>
-            Shipped an MVP with a four-person team—enough map
-            and stack to validate the founding idea.
+            Shipped Flask site: landing, about, resources
+            (plans), contact, Leaflet properties map
           </li>
           <li>
-            Portfolio demo stays sparse on purpose; the full
-            parcel corpus ships with a later production site.
+            Portfolio demo ={" "}
+            <strong>sparse parcel sample</strong> only; full
+            set planned for later production site
+          </li>
+          <li>
+            Determined viability of solution: search for
+            parcels → read status/zoning → browse plan types
           </li>
         </ul>
       ),
       illustration: {
-        src: `${processImg}/11-frame-23.jpg`,
-        alt: "Dencity process artifact slide",
+        src: `${prototypeImg}/landing.png`,
+        alt:
+          "Dencity landing prototype — Middle Housing " +
+          "Made Easy",
       },
       details: (
         <p>
-          We proved Dencity could exist: threat model, stack,
-          and a working Leaflet experience over cleaned
-          parcels. What you see below is only a
-          <strong> fraction</strong> of the available data—a
-          sparse preview for this portfolio. A working website
-          with the full parcel set will be deployed later.
+          The MVP proved that loop end-to-end. Below (on the
+          live page) is a <strong>fraction</strong> of
+          available parcels for preview. Full data ships with
+          a later production website.
         </p>
       ),
       artifacts: [
         {
-          title: "Process artifact",
+          title: "Properties map prototype",
           description: (
             <>
-              Workshop and research framing from the build
-              that turned the founding brief into an MVP.
+              Interactive Leaflet map with parcel
+              popups—proof the MVP loop works end-to-end.
             </>
           ),
           image: {
-            src: `${processImg}/11-frame-23.jpg`,
-            alt: "Dencity process frame",
-            caption: "Process frame",
-          },
-        },
-        {
-          title: "Research board",
-          description: (
-            <>
-              Supporting exploration captured while we aligned
-              threat vectors, stack, and data partnership work.
-            </>
-          ),
-          image: {
-            src: `${processImg}/12-frame-24.jpg`,
-            alt: "Dencity research frame",
-            caption: "Research frame",
+            src: `${prototypeImg}/properties-map.png`,
+            alt:
+              "Dencity properties page with Leaflet parcel " +
+              "map and popup",
+            caption: (
+              <>
+                Parcel map with address / name / year-built
+                popup—search → read → browse.
+              </>
+            ),
           },
         },
       ],

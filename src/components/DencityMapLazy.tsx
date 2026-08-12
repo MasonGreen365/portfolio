@@ -25,6 +25,7 @@ const DencityMap = dynamic(
   },
 );
 
+/* Client-only dynamic import wrapper for the Dencity Leaflet map. */
 export default function DencityMapLazy() {
   return <DencityMap />;
 }

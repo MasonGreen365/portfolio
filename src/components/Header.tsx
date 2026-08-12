@@ -6,6 +6,7 @@ const navLinks = [
   { href: "/#resume", label: "RESUME" },
 ];
 
+/* Sticky site header with primary navigation and Calendly link. */
 export default function Header() {
   return (
     <header className="sticky top-0 z-50 border-b border-black bg-white">

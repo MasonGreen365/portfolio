@@ -45,6 +45,7 @@ function loadCalendlyScript(): Promise<void> {
   });
 }
 
+/* Inline Calendly scheduling widget for the contact page. */
 export default function CalendlyEmbed() {
   const containerRef = useRef<HTMLDivElement>(null);
 

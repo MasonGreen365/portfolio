@@ -3,18 +3,25 @@ import type { CSSProperties } from "react";
 import CaseStudyCarousel from "@/components/CaseStudyCarousel";
 import type { CaseStudyContent } from "@/data/caseStudy";
 
+/* Props for the shared case-study page shell. */
 type CaseStudyLayoutProps = {
   content: CaseStudyContent;
   /** Optional slot below Find out more (e.g. D3 island). */
   children?: React.ReactNode;
 };
 
+/* Shared case-study layout: About, carousel, optional demo/video. */
 export default function CaseStudyLayout({
   content,
   children,
 }: CaseStudyLayoutProps) {
-  const { about, cards, findOutMore, demoVideo } =
-    content;
+  const {
+    about,
+    cards,
+    findOutMore,
+    demoVideo,
+    crudRoutes,
+  } = content;
   const hasAside =
     Boolean(about.logoStack) ||
     Boolean(about.collaboration);
@@ -22,20 +29,35 @@ export default function CaseStudyLayout({
   return (
     <div className="mt-10">
       <section className="mx-auto max-w-5xl px-6">
-        <h2 className="text-2xl font-semibold tracking-wide">
-          About
-        </h2>
         <div
           className={
             hasAside
-              ? "mt-6 grid items-start gap-10 " +
+              ? "grid items-start gap-10 " +
                 "lg:grid-cols-[minmax(0,1fr)_14rem]"
-              : "mt-6"
+              : undefined
           }
         >
-          <div className="max-w-2xl space-y-4 leading-relaxed">
-            <p>{about.problem}</p>
-            <p>{about.role}</p>
+          <div className="max-w-2xl space-y-8 leading-relaxed">
+            <div>
+              <h2
+                className={
+                  "text-2xl font-semibold tracking-wide"
+                }
+              >
+                Role
+              </h2>
+              <p className="mt-4">{about.role}</p>
+            </div>
+            <div>
+              <h2
+                className={
+                  "text-2xl font-semibold tracking-wide"
+                }
+              >
+                Problem
+              </h2>
+              <p className="mt-4">{about.problem}</p>
+            </div>
           </div>
           {about.logoStack ? (
             <aside
@@ -221,6 +243,97 @@ export default function CaseStudyLayout({
         </section>
       ) : null}
 
+      {/* CRUD API strip */}
+      {crudRoutes ? (
+        <section
+          className={
+            "mx-auto max-w-5xl border-t border-black " +
+            "px-6 py-12"
+          }
+        >
+          <h2
+            className={
+              "text-2xl font-semibold tracking-wide"
+            }
+          >
+            {crudRoutes.title ?? "User API CRUD"}
+          </h2>
+          {crudRoutes.intro ? (
+            <p className="mt-4 max-w-2xl leading-relaxed">
+              {crudRoutes.intro}
+            </p>
+          ) : null}
+          <ul className="mt-8 space-y-6">
+            {crudRoutes.routes.map((route) => (
+              <li
+                key={`${route.method}-${route.path}`}
+                className={
+                  "rounded-2xl border border-black " +
+                  "bg-white p-5"
+                }
+              >
+                <div
+                  className={
+                    "flex flex-wrap items-baseline " +
+                    "gap-x-3 gap-y-1"
+                  }
+                >
+                  <span
+                    className={
+                      "text-xs font-semibold " +
+                      "tracking-wide text-neutral-500"
+                    }
+                  >
+                    {route.operation}
+                  </span>
+                  <code
+                    className={
+                      "text-sm font-semibold " +
+                      "tracking-wide"
+                    }
+                  >
+                    <span className="text-[var(--palette-ochre)]">
+                      {route.method}
+                    </span>{" "}
+                    {route.path}
+                  </code>
+                </div>
+                <p className="mt-3 text-sm leading-relaxed">
+                  {route.what}
+                </p>
+                <p
+                  className={
+                    "mt-2 text-sm leading-relaxed " +
+                    "text-neutral-600"
+                  }
+                >
+                  {route.mongo}
+                </p>
+                <ul
+                  className={
+                    "mt-4 flex flex-wrap gap-2"
+                  }
+                >
+                  {route.skills.map((skill) => (
+                    <li
+                      key={skill}
+                      className={
+                        "rounded-full border " +
+                        "border-black/20 px-3 py-1 " +
+                        "text-xs tracking-wide"
+                      }
+                    >
+                      {skill}
+                    </li>
+                  ))}
+                </ul>
+              </li>
+            ))}
+          </ul>
+        </section>
+      ) : null}
+
+      {/* Demo video section */}
       {demoVideo ? (
         <section
           className={
