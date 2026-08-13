@@ -1,4 +1,4 @@
-import Link from "next/link";
+import AnimatedLink from "@/components/AnimatedLink";
 import { notFound } from "next/navigation";
 import AvePassCaseStudy from "@/components/AvePassCaseStudy";
 import ContigoCaseStudy from "@/components/ContigoCaseStudy";
@@ -35,9 +35,12 @@ export default async function ProjectDetailPage({
   return (
     <div className="py-16">
       <div className="mx-auto max-w-5xl px-6">
-        <Link href="/projects" className="text-sm underline">
+        <AnimatedLink
+          href="/projects"
+          className="text-sm underline"
+        >
           Back to projects
-        </Link>
+        </AnimatedLink>
         <div className="mt-6 flex items-start justify-between gap-6">
           <div className="min-w-0 flex-1">
             <h1
@@ -79,11 +82,10 @@ export default async function ProjectDetailPage({
                     : undefined
                 }
                 className={
-                  "inline-block rounded-xl border " +
-                  "border-black px-4 py-2 text-sm " +
-                  "font-medium tracking-wide " +
-                  "transition hover:bg-black " +
-                  "hover:text-white"
+                  "interactive inline-block rounded-xl " +
+                  "border border-black px-4 py-2 " +
+                  "text-sm font-medium tracking-wide " +
+                  "hover:bg-black hover:text-white"
                 }
               >
                 {project.demoStatus}

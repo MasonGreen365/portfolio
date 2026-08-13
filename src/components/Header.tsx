@@ -1,20 +1,30 @@
 "use client";
 
-import Link from "next/link";
+import AnimatedLink from "@/components/AnimatedLink";
+import { usePathname } from "next/navigation";
 import { useEffect, useId, useRef, useState } from "react";
 
-const navLinks = [
-  { href: "/#about", label: "ABOUT" },
-  { href: "/projects", label: "PROJECTS" },
-  { href: "/#resume", label: "RESUME" },
-  { href: "/contact", label: "CONTACT ME" },
+type NavItem =
+  | { kind: "hash"; hash: string; label: string }
+  | { kind: "page"; href: string; label: string };
+
+const navItems: NavItem[] = [
+  { kind: "hash", hash: "about", label: "ABOUT" },
+  { kind: "page", href: "/projects", label: "PROJECTS" },
+  { kind: "hash", hash: "resume", label: "RESUME" },
+  { kind: "page", href: "/contact", label: "CONTACT ME" },
 ];
 
 const CALENDLY_URL =
   "https://calendly.com/masongreen511/chat";
 
+function hashHref(hash: string, pathname: string): string {
+  return pathname === "/" ? `#${hash}` : `/#${hash}`;
+}
+
 /* Sticky site header: desktop nav, sm hamburger dropdown. */
 export default function Header() {
+  const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const menuId = useId();
   const rootRef = useRef<HTMLElement>(null);
@@ -60,8 +70,14 @@ export default function Header() {
       }
     }
     window.addEventListener("resize", onResize);
-    return () => window.removeEventListener("resize", onResize);
+    return () =>
+      window.removeEventListener("resize", onResize);
   }, []);
+
+  const desktopItems = navItems.filter(
+    (item) =>
+      !(item.kind === "page" && item.href === "/contact"),
+  );
 
   return (
     <header
@@ -74,7 +90,7 @@ export default function Header() {
           "justify-between px-6 py-4"
         }
       >
-        <Link
+        <AnimatedLink
           href="/"
           className={
             "min-w-0 shrink text-lg font-semibold " +
@@ -83,7 +99,7 @@ export default function Header() {
           onClick={() => setOpen(false)}
         >
           Mason Green
-        </Link>
+        </AnimatedLink>
 
         {/* Desktop nav */}
         <nav
@@ -91,24 +107,39 @@ export default function Header() {
           className="hidden sm:block"
         >
           <ul className="flex items-center gap-6 text-sm tracking-wide">
-            {navLinks.slice(0, 3).map((link) => (
-              <li key={link.href}>
-                <Link
-                  href={link.href}
-                  className="hover:underline"
-                >
-                  {link.label}
-                </Link>
+            {desktopItems.map((item) => (
+              <li
+                key={
+                  item.kind === "hash"
+                    ? item.hash
+                    : item.href
+                }
+              >
+                {item.kind === "hash" ? (
+                  <a
+                    href={hashHref(item.hash, pathname)}
+                    className="interactive hover:underline"
+                  >
+                    {item.label}
+                  </a>
+                ) : (
+                  <AnimatedLink
+                    href={item.href}
+                    className="hover:underline"
+                  >
+                    {item.label}
+                  </AnimatedLink>
+                )}
               </li>
             ))}
             <li className="group relative">
-              <Link
+              <AnimatedLink
                 href="/contact"
-                className="inline-block hover:underline"
+                className="hover:underline"
                 aria-haspopup="true"
               >
                 CONTACT ME
-              </Link>
+              </AnimatedLink>
               <div
                 className={
                   "invisible absolute left-1/2 top-full " +
@@ -124,8 +155,9 @@ export default function Header() {
                   target="_blank"
                   rel="noopener noreferrer"
                   className={
-                    "block border border-black bg-white " +
-                    "px-4 py-2 text-center hover:underline"
+                    "interactive block border border-black " +
+                    "bg-white px-4 py-2 text-center " +
+                    "hover:underline"
                   }
                 >
                   Calendly
@@ -139,8 +171,8 @@ export default function Header() {
         <button
           type="button"
           className={
-            "inline-flex h-10 w-10 shrink-0 " +
-            "items-center justify-center " +
+            "interactive inline-flex h-10 w-10 " +
+            "shrink-0 items-center justify-center " +
             "border border-black sm:hidden"
           }
           aria-expanded={open}
@@ -173,7 +205,12 @@ export default function Header() {
         <nav
           id={menuId}
           aria-label="Primary mobile"
-          className="border-t border-black bg-white sm:hidden"
+          className={
+            "border-t border-black bg-white " +
+            "motion-safe:animate-fade-in " +
+            "motion-safe:animate-duration-fast " +
+            "sm:hidden"
+          }
         >
           <ul
             className={
@@ -181,18 +218,40 @@ export default function Header() {
               "text-sm tracking-wide"
             }
           >
-            {navLinks.map((link) => (
+            {navItems.map((item) => (
               <li
-                key={link.href}
-                className="border-t border-black/10 first:border-t-0"
+                key={
+                  item.kind === "hash"
+                    ? item.hash
+                    : item.href
+                }
+                className={
+                  "border-t border-black/10 first:border-t-0"
+                }
               >
-                <Link
-                  href={link.href}
-                  className="block px-6 py-3 hover:underline"
-                  onClick={() => setOpen(false)}
-                >
-                  {link.label}
-                </Link>
+                {item.kind === "hash" ? (
+                  <a
+                    href={hashHref(item.hash, pathname)}
+                    className={
+                      "interactive block px-6 py-3 " +
+                      "hover:underline"
+                    }
+                    onClick={() => setOpen(false)}
+                  >
+                    {item.label}
+                  </a>
+                ) : (
+                  <AnimatedLink
+                    href={item.href}
+                    className={
+                      "block w-full px-6 py-3 " +
+                      "hover:underline"
+                    }
+                    onClick={() => setOpen(false)}
+                  >
+                    {item.label}
+                  </AnimatedLink>
+                )}
               </li>
             ))}
             <li className="border-t border-black/10">
@@ -200,7 +259,10 @@ export default function Header() {
                 href={CALENDLY_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="block px-6 py-3 hover:underline"
+                className={
+                  "interactive block px-6 py-3 " +
+                  "hover:underline"
+                }
                 onClick={() => setOpen(false)}
               >
                 CALENDLY

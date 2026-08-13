@@ -1,4 +1,4 @@
-import Link from "next/link";
+import AnimatedLink from "@/components/AnimatedLink";
 import ProjectRoleTag from "@/components/ProjectRoleTag";
 import { projects } from "@/data/projects";
 
@@ -29,12 +29,12 @@ export default function Home() {
           {projects.map((project) => (
             <li key={project.slug}>
               <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
-                <Link
+                <AnimatedLink
                   href={`/projects/${project.slug}`}
                   className="text-xl font-medium underline"
                 >
                   {project.title}
-                </Link>
+                </AnimatedLink>
                 <ProjectRoleTag
                   role={project.role}
                   accent={project.roleAccent}
@@ -47,12 +47,12 @@ export default function Home() {
             </li>
           ))}
         </ul>
-        <Link
+        <AnimatedLink
           href="/projects"
-          className="mt-8 inline-block underline"
+          className="mt-8 underline"
         >
           View all projects
-        </Link>
+        </AnimatedLink>
       </section>
 
       <section
@@ -74,12 +74,12 @@ export default function Home() {
         <p className="mt-4 max-w-2xl leading-relaxed">
           Reach out by email or schedule a meeting.
         </p>
-        <Link
+        <AnimatedLink
           href="/contact"
-          className="mt-4 inline-block underline"
+          className="mt-4 underline"
         >
           Go to contact
-        </Link>
+        </AnimatedLink>
       </section>
     </div>
   );

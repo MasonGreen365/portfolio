@@ -101,12 +101,11 @@ export default function CaseStudyCarousel({
             type="button"
             onClick={goPrev}
             className={
-              "hidden h-10 w-10 items-center " +
+              "interactive hidden h-10 w-10 items-center " +
               "justify-center rounded-full " +
               "border border-black text-lg " +
-              "leading-none transition " +
-              "hover:bg-black hover:text-white " +
-              "sm:flex"
+              "leading-none hover:bg-black " +
+              "hover:text-white sm:flex"
             }
             aria-label="Previous card"
           >
@@ -116,12 +115,11 @@ export default function CaseStudyCarousel({
             type="button"
             onClick={goNext}
             className={
-              "hidden h-10 w-10 items-center " +
+              "interactive hidden h-10 w-10 items-center " +
               "justify-center rounded-full " +
               "border border-black text-lg " +
-              "leading-none transition " +
-              "hover:bg-black hover:text-white " +
-              "sm:flex"
+              "leading-none hover:bg-black " +
+              "hover:text-white sm:flex"
             }
             aria-label="Next card"
           >
@@ -205,12 +203,11 @@ export default function CaseStudyCarousel({
                 onClick={() =>
                   setExpanded((open) => !open)
                 }
-                className={
-                  "mx-auto flex w-full max-w-xs " +
-                  "flex-col items-center gap-1 " +
-                  "py-2 text-sm tracking-wide " +
-                  "transition hover:opacity-70"
-                }
+                  className={
+                    "interactive mx-auto flex w-full " +
+                    "max-w-xs flex-col items-center " +
+                    "gap-1 py-2 text-sm tracking-wide"
+                  }
                 aria-expanded={expanded}
                 aria-controls={
                   `card-expand-${card.id}`
@@ -344,8 +341,8 @@ export default function CaseStudyCarousel({
             aria-label={`Show ${item.title}`}
             onClick={() => selectCard(i)}
             className={
-              "h-2.5 w-2.5 rounded-full " +
-              "border border-black transition " +
+              "interactive h-2.5 w-2.5 rounded-full " +
+              "border border-black " +
               (i === index
                 ? "bg-black"
                 : "bg-transparent")

@@ -1,4 +1,4 @@
-import Link from "next/link";
+import AnimatedLink from "@/components/AnimatedLink";
 import ProjectRoleTag from "@/components/ProjectRoleTag";
 import { projects } from "@/data/projects";
 
@@ -21,13 +21,18 @@ export default function ProjectsPage() {
               "first:border-t-0 first:pt-0"
             }
           >
-            <h2 className="flex flex-wrap items-baseline gap-x-3 gap-y-1 text-xl font-medium">
-              <Link
+            <h2
+              className={
+                "flex flex-wrap items-baseline " +
+                "gap-x-3 gap-y-1 text-xl font-medium"
+              }
+            >
+              <AnimatedLink
                 href={`/projects/${project.slug}`}
                 className="underline"
               >
                 {project.title}
-              </Link>
+              </AnimatedLink>
               <ProjectRoleTag
                 role={project.role}
                 accent={project.roleAccent}

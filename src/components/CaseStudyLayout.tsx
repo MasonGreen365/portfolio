@@ -368,9 +368,8 @@ export default function CaseStudyLayout({
               }
               title={demoVideo.title ?? "Demo video"}
               allow={
-                "accelerometer; autoplay; clipboard-write; " +
-                "encrypted-media; gyroscope; " +
-                "picture-in-picture; web-share"
+                "accelerometer; autoplay; encrypted-media; " +
+                "gyroscope; picture-in-picture"
               }
               allowFullScreen
               loading="lazy"

@@ -11,7 +11,7 @@ export default function ContactPage() {
           <ul className="mt-4 space-y-3 leading-relaxed">
             <li>
               <span className="block text-sm tracking-wide">Email</span>
-              <a href="mailto:masongreen511@gmail.com" className="underline">
+              <a href="mailto:masongreen511@gmail.com" className="interactive underline">
                 masongreen511@gmail.com
               </a>
             </li>
@@ -21,7 +21,7 @@ export default function ContactPage() {
                 href="https://www.linkedin.com/in/masonlgreen"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="underline"
+                className="interactive underline"
               >
                 linkedin.com/in/masonlgreen
               </a>
@@ -42,7 +42,7 @@ export default function ContactPage() {
             href={CALENDLY_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="mt-2 inline-block text-sm underline"
+            className="interactive mt-2 inline-block text-sm underline"
           >
             Open Calendly
           </a>
