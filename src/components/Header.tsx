@@ -6,13 +6,19 @@ import { useEffect, useId, useRef, useState } from "react";
 
 type NavItem =
   | { kind: "hash"; hash: string; label: string }
-  | { kind: "page"; href: string; label: string };
+  | { kind: "page"; href: string; label: string }
+  | { kind: "external"; href: string; label: string };
 
 const navItems: NavItem[] = [
   { kind: "hash", hash: "about", label: "ABOUT" },
   { kind: "page", href: "/projects", label: "PROJECTS" },
   { kind: "hash", hash: "resume", label: "RESUME" },
   { kind: "page", href: "/contact", label: "CONTACT ME" },
+  {
+    kind: "external",
+    href: "https://www.linkedin.com/in/masonlgreen/",
+    label: "LINKEDIN",
+  },
 ];
 
 const CALENDLY_URL =
@@ -20,6 +26,11 @@ const CALENDLY_URL =
 
 function hashHref(hash: string, pathname: string): string {
   return pathname === "/" ? `#${hash}` : `/#${hash}`;
+}
+
+function navItemKey(item: NavItem): string {
+  if (item.kind === "hash") return item.hash;
+  return item.href;
 }
 
 /* Sticky site header: desktop nav, sm hamburger dropdown. */
@@ -79,6 +90,46 @@ export default function Header() {
       !(item.kind === "page" && item.href === "/contact"),
   );
 
+  function renderNavLink(
+    item: NavItem,
+    className: string,
+    onNavigate?: () => void,
+  ) {
+    if (item.kind === "hash") {
+      return (
+        <a
+          href={hashHref(item.hash, pathname)}
+          className={className}
+          onClick={onNavigate}
+        >
+          {item.label}
+        </a>
+      );
+    }
+    if (item.kind === "external") {
+      return (
+        <a
+          href={item.href}
+          target="_blank"
+          rel="noopener noreferrer"
+          className={className}
+          onClick={onNavigate}
+        >
+          {item.label}
+        </a>
+      );
+    }
+    return (
+      <AnimatedLink
+        href={item.href}
+        className={className}
+        onClick={onNavigate}
+      >
+        {item.label}
+      </AnimatedLink>
+    );
+  }
+
   return (
     <header
       ref={rootRef}
@@ -108,27 +159,10 @@ export default function Header() {
         >
           <ul className="flex items-center gap-6 text-sm tracking-wide">
             {desktopItems.map((item) => (
-              <li
-                key={
-                  item.kind === "hash"
-                    ? item.hash
-                    : item.href
-                }
-              >
-                {item.kind === "hash" ? (
-                  <a
-                    href={hashHref(item.hash, pathname)}
-                    className="interactive hover:underline"
-                  >
-                    {item.label}
-                  </a>
-                ) : (
-                  <AnimatedLink
-                    href={item.href}
-                    className="hover:underline"
-                  >
-                    {item.label}
-                  </AnimatedLink>
+              <li key={navItemKey(item)}>
+                {renderNavLink(
+                  item,
+                  "interactive hover:underline",
                 )}
               </li>
             ))}
@@ -220,37 +254,15 @@ export default function Header() {
           >
             {navItems.map((item) => (
               <li
-                key={
-                  item.kind === "hash"
-                    ? item.hash
-                    : item.href
-                }
+                key={navItemKey(item)}
                 className={
                   "border-t border-black/10 first:border-t-0"
                 }
               >
-                {item.kind === "hash" ? (
-                  <a
-                    href={hashHref(item.hash, pathname)}
-                    className={
-                      "interactive block px-6 py-3 " +
-                      "hover:underline"
-                    }
-                    onClick={() => setOpen(false)}
-                  >
-                    {item.label}
-                  </a>
-                ) : (
-                  <AnimatedLink
-                    href={item.href}
-                    className={
-                      "block w-full px-6 py-3 " +
-                      "hover:underline"
-                    }
-                    onClick={() => setOpen(false)}
-                  >
-                    {item.label}
-                  </AnimatedLink>
+                {renderNavLink(
+                  item,
+                  "interactive block px-6 py-3 hover:underline",
+                  () => setOpen(false),
                 )}
               </li>
             ))}
