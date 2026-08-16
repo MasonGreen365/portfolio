@@ -1,6 +1,12 @@
+import Image from "next/image";
 import AnimatedLink from "@/components/AnimatedLink";
 import ProjectRoleTag from "@/components/ProjectRoleTag";
 import { projects } from "@/data/projects";
+import {
+  RESUME_DOWNLOAD_NAME,
+  RESUME_PDF_PATH,
+  RESUME_PREVIEW_IMAGE,
+} from "@/data/resume";
 
 export default function Home() {
   return (
@@ -59,12 +65,39 @@ export default function Home() {
         id="resume"
         className="scroll-mt-24 border-t border-black py-16"
       >
-        <h2 className="text-3xl font-semibold tracking-wide">
-          Resume
-        </h2>
-        <p className="mt-4 max-w-2xl leading-relaxed">
-          Resume download coming soon.
-        </p>
+        <div className="flex flex-wrap items-start justify-between gap-4">
+          <h2 className="text-3xl font-semibold tracking-wide">
+            Resume
+          </h2>
+          <a
+            href={RESUME_PDF_PATH}
+            download={RESUME_DOWNLOAD_NAME}
+            className={
+              "interactive shrink-0 rounded-xl " +
+              "border border-black px-4 py-2 " +
+              "text-sm font-medium tracking-wide " +
+              "hover:bg-black hover:text-white"
+            }
+          >
+            Download
+          </a>
+        </div>
+        <div
+          className={
+            "mt-8 overflow-hidden rounded-2xl " +
+            "border border-black bg-white"
+          }
+        >
+          <Image
+            src={RESUME_PREVIEW_IMAGE}
+            alt="Preview of Mason Green resume"
+            width={1530}
+            height={1980}
+            className="h-auto w-full"
+            sizes="(max-width: 1024px) 100vw, 64rem"
+            priority={false}
+          />
+        </div>
       </section>
 
       <section className="scroll-mt-24 border-t border-black py-16">
